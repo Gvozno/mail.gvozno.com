@@ -90,9 +90,9 @@ canvas {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
     display: inline-block;
     white-space: nowrap;
     transition: none;
     text-decoration: none;
 }
+
