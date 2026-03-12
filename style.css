@@ -21,6 +21,14 @@ html {
     background-color: #000000;
     height: 100dvh;
 }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { 
+    background: linear-gradient(#555, #333); 
+    border-radius: 10px; 
+}
+
 body {
     background: transparent;
     color: white;
@@ -111,17 +119,20 @@ header {
     margin-bottom: 2.2rem;
     opacity: 0.92;
 }
+
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
     background: rgba(0, 0, 0, 0.85);
-    padding: 50px 0;
+    padding: 50px 0 30px;
     text-align: center;
     border-top: 1px solid rgba(255,255,255,0.05);
-    z-index: 10;
 }
+
+.footer-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .copyright {
     font-size: 0.8rem;
     color: rgba(255,255,255,0.3);
@@ -137,6 +148,18 @@ footer {
 .footer-email:hover {
     color: white;
 }
+
+.who-link {
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+}
+
+.who-link:hover {
+    color: white;
+}
+
 @media (max-width: 768px) {
     header {
         top: 20px;
@@ -166,7 +189,14 @@ footer {
         font-size: 1rem;
         letter-spacing: 2px;
     }
+    .container {
+        padding: 100px 20px 80px;
+    }
+    footer {
+        padding: 40px 0 20px;
+    }
 }
+
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
 }
