@@ -56,25 +56,23 @@ canvas {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
     display: inline-block;
     white-space: nowrap;
     transition: none;
 }
 header {
-    position: fixed;
-    top: 28px;
-    right: 36px;
-    z-index: 100;
+    padding: 28px 36px 20px; /* отступы сверху и по бокам */
+    text-align: right;       /* кнопки справа, как раньше */
 }
+
 .header-inner {
     display: flex;
     gap: 16px;
+    justify-content: flex-end; /* кнопки прижаты вправо */
 }
 .btn {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    box-shadow: var(--shadow);
     padding: 10px 28px;
     font-size: 0.92rem;
     font-weight: 600;
@@ -121,7 +119,6 @@ header {
 }
 
 footer {
-    background: rgba(0, 0, 0, 0.85);
     padding: 50px 0 30px;
     text-align: center;
     border-top: 1px solid rgba(255,255,255,0.05);
