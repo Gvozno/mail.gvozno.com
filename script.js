@@ -3,12 +3,36 @@ const ctx = canvas.getContext('2d');
 let w = canvas.width = window.innerWidth;
 let h = canvas.height = window.innerHeight;
 
-window.addEventListener('resize', () => {
+function debounce(fn, wait = 100) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, args), wait);
+    };
+}
+
+window.addEventListener('resize', debounce(() => {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-});
+}));
 
-const stars = [];
+const SHOOTING = {
+    spawnPerSecond: 0.7,
+    speedMin: 450,
+    speedMax: 850,
+    lengthMin: 60,
+    lengthMax: 160,
+    angleMinDeg: 25,
+    angleMaxDeg: 50,
+    fadePerSecond: 1.1,
+    lineWidth: 2.8,
+    shadowBlur: 28,
+    color: '#f0f8ff',
+    glow: '#c0e0ff',
+
+    maxStars: 12
+};
+
 class Star {
     constructor() {
         this.x = Math.random() * w;
@@ -39,44 +63,74 @@ class Star {
         ctx.restore();
     }
 }
-for (let i = 0; i < 50; i++) stars.push(new Star());
 
-const shootingStars = [];
 class ShootingStar {
-    constructor() { this.reset(); }
+    constructor() {
+        this.reset();
+    }
+
     reset() {
-        this.x = Math.random() * w * 1.15 - w * 0.2;
-        this.y = Math.random() * h * 0.3;
-        this.len = Math.random() * 62 + 45;
-        this.speed = Math.random() * 15 + 18;
-        this.angle = Math.PI / 180 * (28 + Math.random() * 17);
+        this.x = Math.random() * w * 1.2 - w * 0.1;
+        this.y = Math.random() * h * 0.35;
+        this.length = Math.random() * (SHOOTING.lengthMax - SHOOTING.lengthMin) + SHOOTING.lengthMin;
+        this.speed = Math.random() * (SHOOTING.speedMax - SHOOTING.speedMin) + SHOOTING.speedMin;
+        this.angleDeg = Math.random() * (SHOOTING.angleMaxDeg - SHOOTING.angleMinDeg) + SHOOTING.angleMinDeg;
+        this.angle = this.angleDeg * Math.PI / 180;
         this.opacity = 1;
-        this.active = true;
+        this.alive = true;
     }
-    update() {
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed;
-        this.opacity -= 0.017;
-        if (this.opacity <= 0) this.active = false;
+
+    update(deltaSec) {
+        if (!this.alive) return false;
+
+        this.x += Math.cos(this.angle) * this.speed * deltaSec;
+        this.y += Math.sin(this.angle) * this.speed * deltaSec;
+
+        this.opacity -= SHOOTING.fadePerSecond * deltaSec;
+
+        if (this.opacity <= 0 || this.x > w * 1.3 || this.y > h * 1.3) {
+            this.alive = false;
+            return false;
+        }
+
+        return true;
     }
+
     draw() {
         ctx.save();
-        ctx.globalAlpha = this.opacity;
-        ctx.strokeStyle = '#e8f3ff';
-        ctx.lineWidth = 2.7;
-        ctx.shadowBlur = 25;
-        ctx.shadowColor = '#a8ceff';
+        ctx.globalAlpha = this.opacity * this.opacity;
+        ctx.strokeStyle = SHOOTING.color;
+        ctx.lineWidth = SHOOTING.lineWidth;
+        ctx.lineCap = 'round';
+        ctx.shadowBlur = SHOOTING.shadowBlur;
+        ctx.shadowColor = SHOOTING.glow;
+
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x - Math.cos(this.angle) * this.len, this.y - Math.sin(this.angle) * this.len * 0.75);
+
+        const tailX = this.x - Math.cos(this.angle) * this.length;
+        const tailY = this.y - Math.sin(this.angle) * this.length * 0.78;
+        ctx.lineTo(tailX, tailY);
+
         ctx.stroke();
         ctx.restore();
     }
 }
 
-function animate() {
+const stars = [];
+for (let i = 0; i < 50; i++) stars.push(new Star());
+
+const shootingStars = [];
+
+let lastTime = 0;
+
+function animate(currentTime = 0) {
+    if (!lastTime) lastTime = currentTime;
+    const deltaSec = (currentTime - lastTime) / 1000;
+    lastTime = currentTime;
+
     ctx.clearRect(0, 0, w, h);
-    
+
     ctx.fillStyle = '#050505';
     ctx.fillRect(0, 0, w, h);
 
@@ -85,18 +139,22 @@ function animate() {
         star.draw();
     });
 
-    if (Math.random() < 0.012) shootingStars.push(new ShootingStar());
+    if (Math.random() < SHOOTING.spawnPerSecond * deltaSec && shootingStars.length < SHOOTING.maxStars) {
+        shootingStars.push(new ShootingStar());
+    }
+
     for (let i = shootingStars.length - 1; i >= 0; i--) {
         const s = shootingStars[i];
-        if (s.active) {
-            s.update();
+        if (s.update(deltaSec)) {
             s.draw();
         } else {
             shootingStars.splice(i, 1);
         }
     }
+
     requestAnimationFrame(animate);
 }
+
 animate();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -111,4 +169,3 @@ document.addEventListener('DOMContentLoaded', () => {
         target.appendChild(link);
     }
 });
-
