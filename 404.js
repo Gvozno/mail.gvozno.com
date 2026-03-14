@@ -17,7 +17,7 @@ window.addEventListener('resize', debounce(() => {
 }));
 
 const SHOOTING = {
-    spawnPerSecond: 0.7,
+    spawnPerSecond: 0.1,
     speedMin: 450,
     speedMax: 850,
     lengthMin: 60,
