@@ -1,57 +1,62 @@
 :root {
-    --bg: #000000;
-    --card-bg: rgba(150, 150, 150, 0.06);
-    --border: rgba(255, 255, 255, 0.25);
-    --accent: #ffffff;
-    --dim: #888888;
-    --radius: 20px;
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-    --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.45);
-    --transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+    --bg:                    #000000;
+    --card-bg:               rgba(150, 150, 150, 0.06);
+    --border:                rgba(255, 255, 255, 0.22);
+    --accent:                #ffffff;
+    --dim:                   #aaaaaa;
+    --text-dim:              rgba(255, 255, 255, 0.38);
+    --footer-border:         rgba(255, 255, 255, 0.07);
+
+    --radius:                26px;
+    --header-top:            32px;
+    --header-side:           40px;
+    --container-padding:     28px;
+    --btn-padding:           13px 34px;
+    --btn-padding-mobile:    10px 20px;
+    --alpha-card-padding:    14px 42px;
+
+    --fs-title:              clamp(3.9rem, 9.2vw, 7.4rem);
+    --fs-subtitle:           clamp(1.08rem, 2.5vw, 1.32rem);
+    --fs-alpha:              clamp(0.96rem, 2.1vw, 1.12rem);
+    --fs-btn:                0.96rem;
+    --fs-footer:             0.83rem;
+    --fs-subtitle-mobile:    1rem;
+
+    --transition:            all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    --shine-duration:        0.7s;
+    --hover-lift:            translateY(-2px);
 }
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-    overscroll-behavior-y: none;
-    background-color: #000000;
-    height: 100dvh;
-}
 
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #111; }
-::-webkit-scrollbar-thumb { 
-    background: linear-gradient(#555, #333); 
-    border-radius: 10px; 
+html {
+    background: var(--bg);
+    height: 100dvh;
+    overscroll-behavior-y: none;
 }
 
 body {
-    background: transparent;
     color: white;
-    font-family: system-ui, 'Segoe UI', sans-serif;
-    line-height: 1.6;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     min-height: 100dvh;
-    overscroll-behavior-y: none;
 }
 
 canvas {
     position: fixed;
     inset: 0;
     z-index: -1;
-    display: block;
     pointer-events: none;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1020px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--container-padding);
     height: 100dvh;
     display: flex;
     align-items: center;
@@ -63,36 +68,30 @@ canvas {
 }
 
 .title {
-    font-size: clamp(3.8rem, 8.5vw, 6.4rem);
+    font-size: var(--fs-title);
     font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 0.92;
-    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    line-height: 0.88;
 }
 
 .subtitle {
-    font-size: clamp(1rem, 2.3vw, 1.2rem);
-    font-weight: 400;
-    letter-spacing: 1.8px;
+    font-size: var(--fs-subtitle);
+    letter-spacing: 2.8px;
     text-transform: uppercase;
     color: var(--dim);
-    margin-bottom: 2.2rem;
-    opacity: 0.92;
+    margin: 1.4rem 0 2.8rem;
 }
 
 .back {
-    padding: 10px 32px;
-    font-size: clamp(0.95rem, 2.2vw, 1.12rem);
+    padding: var(--alpha-card-padding);
+    font-size: var(--fs-alpha);
     font-weight: 600;
-    letter-spacing: 2.5px;
+    letter-spacing: 3.2px;
     text-transform: uppercase;
-    color: var(--dim);
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    display: inline-block;
     white-space: nowrap;
-    transition: none;
     text-decoration: none;
+    color: var(--accent);
 }
-
