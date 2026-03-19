@@ -1,0 +1,97 @@
+:root {
+    --bg:                    #000000;
+    --card-bg:               rgba(150, 150, 150, 0.06);
+    --border:                rgba(255, 255, 255, 0.22);
+    --accent:                #ffffff;
+    --dim:                   #aaaaaa;
+    --text-dim:              rgba(255, 255, 255, 0.38);
+    --footer-border:         rgba(255, 255, 255, 0.07);
+
+    --radius:                26px;
+    --header-top:            32px;
+    --header-side:           40px;
+    --container-padding:     28px;
+    --btn-padding:           13px 34px;
+    --btn-padding-mobile:    10px 20px;
+    --alpha-card-padding:    14px 42px;
+
+    --fs-title:              clamp(3.9rem, 9.2vw, 7.4rem);
+    --fs-subtitle:           clamp(1.08rem, 2.5vw, 1.32rem);
+    --fs-alpha:              clamp(0.96rem, 2.1vw, 1.12rem);
+    --fs-btn:                0.96rem;
+    --fs-footer:             0.83rem;
+    --fs-subtitle-mobile:    1rem;
+
+    --transition:            all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    --shine-duration:        0.7s;
+    --hover-lift:            translateY(-2px);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background: var(--bg);
+    height: 100dvh;
+    overscroll-behavior-y: none;
+}
+
+body {
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+}
+
+canvas {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.container {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero {
+    text-align: center;
+}
+
+.title {
+    font-size: var(--fs-title);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 0.88;
+}
+
+.subtitle {
+    font-size: var(--fs-subtitle);
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin: 1.4rem 0 2.8rem;
+}
+
+.back {
+    padding: var(--alpha-card-padding);
+    font-size: var(--fs-alpha);
+    font-weight: 600;
+    letter-spacing: 3.2px;
+    text-transform: uppercase;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--accent);
+}

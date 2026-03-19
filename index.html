@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gvozno Mail • Alpha</title>
+
+    <meta http-equiv="refresh" content="0; url=/en/">
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <script>
+        const userLang = (
+            navigator.languages?.[0] ||
+            navigator.language ||
+            navigator.browserLanguage ||
+            navigator.userLanguage ||
+            'en'
+        ).toLowerCase();
+
+        const isRussian = userLang.startsWith('ru') ||
+                         userLang.includes('-ru') ||
+                         userLang === 'russian';
+
+        if (isRussian) {
+            window.location.replace('/ru/');
+        } else {
+            window.location.replace('/en/');
+        }
+
+        setTimeout(() => {
+            if (!document.hidden) {
+                window.location.replace('/en/');
+            }
+        }, 1500);
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100dvh;
+            background: #000;
+            color: #666;
+            font-family: system-ui, sans-serif;
+            display: grid;
+            place-items: center;
+            text-align: center;
+        }
+        a { color: #aaa; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <p>Redirecting...<br>
+       <small>If nothing happens → <a href="/en/">English</a> / <a href="/ru/">Русский</a></small>
+    </p>
+</body>
+</html>
