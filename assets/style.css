@@ -341,7 +341,7 @@ header {
     .alpha-card {
         letter-spacing: 0.9px;
         font-size: clamp(0.75rem, 3.8vw, 0.85rem);
-        padding: 10px 2px; 
+        padding: 10px 5px; 
     }
 
     .btn {
